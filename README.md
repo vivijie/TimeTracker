@@ -9,7 +9,7 @@ What is TimeTracker
 
 ## How to tracking
 1. Open Terminal, run "trakcer.py". 
-![terminal]("/screenshots/terminal.png")
+![terminal]("http://vivijie.github.io/images/screenshots/terminal.png")
 
 2. Open "timedate.csv" to see the result.
-![csv]("/screenshots/csv.png")
+![csv]("http://vivijie.github.io/images/screenshots/csv.png")
