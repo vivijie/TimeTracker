@@ -12,19 +12,19 @@ appTime = 0
 appList = {}
 appArray = {}
 # Initial appArray
-timeStart = int(time.strftime('%Y%m%d%H%M%S',time.localtime(time.time())))
+timeStart = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
 appArray[timeStart] = currentApp
 
 # record time data
 for i in range(10):
 	activeAppName = NSWorkspace.sharedWorkspace().activeApplication()['NSApplicationName']
 	if currentApp == activeAppName:
-		t = int(time.strftime('%Y%m%d%H%M%S',time.localtime(time.time())))
+		t = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
 		time.sleep(1)
 		
 		# record log
 		appTime += 1 
-		print activeAppName + "%d %d" % (t, appTime)
+		print activeAppName + t + "%d" % appTime
 
 
 		# record app time to dictionary
@@ -38,7 +38,7 @@ for i in range(10):
 
 	else:
 		currentApp = activeAppName
-		timeStart = int(time.strftime('%Y%m%d%H%M%S',time.localtime(time.time())))
+		timeStart = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
 
 		appArray[timeStart] = currentApp
 		print timeStart
