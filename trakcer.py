@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import datetime
 import time
 import csv
 import sqlite3
@@ -12,19 +13,20 @@ appTime = 0
 appList = {}
 appArray = {}
 # Initial appArray
-timeStart = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+timeStart = datetime.datetime.now()
 appArray[timeStart] = currentApp
 
 # record time data
 for i in range(10):
 	activeAppName = NSWorkspace.sharedWorkspace().activeApplication()['NSApplicationName']
+	timeStart1 = datetime.datetime.now()
 	if currentApp == activeAppName:
-		t = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+		t = datetime.datetime.now()
 		time.sleep(1)
 		
 		# record log
 		appTime += 1 
-		print activeAppName + t + "%d" % appTime
+		print "Log: " + activeAppName + "_" + str(t) + "%d" % appTime
 
 
 		# record app time to dictionary
@@ -37,8 +39,10 @@ for i in range(10):
 	
 
 	else:
+		timeStart2 = datetime.datetime.now()
+		
 		currentApp = activeAppName
-		timeStart = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+		timeStart = datetime.datetime.now()
 
 		appArray[timeStart] = currentApp
 		print timeStart
@@ -46,11 +50,10 @@ for i in range(10):
 		print "Switch to: %s" % currentApp
 		continue
 
+
+
 print appList
 print appArray
-# # sort the appArray
-# appArraySorted = sorted(appArray.iteritems(), key=lambda d:d[0])
-# print appArraySorted
 
 # write appArray to csv
 with open('timedate.csv', 'wb') as f:
@@ -58,10 +61,3 @@ with open('timedate.csv', 'wb') as f:
 	w.writeheader()
 	w.writerow(appArray)
 
-# # wirte appArray to sqlite
-# conn = sqlite3.connect('appList.db')
-# c = conn.cursor()
-# # c.execute("""CREATE TABLE appList (id integer primary key,name varchar(20) UNIQUE,time integer)""")
-# c.execute("UPDATE appList VALUES (?,?)", [dict["name"], dict["time"]])
-# conn.commit()
-# conn.close()
